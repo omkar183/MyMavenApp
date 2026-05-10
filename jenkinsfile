@@ -8,7 +8,7 @@ stages {
 stage('Checkout') {
 steps {
 git branch: 'master', url:
-'https://github.com/rakshith31-hub/Mymavenapp.git'
+'https://github.com/omkar183/MyMavenApp.git'
 }
 }
 stage('Build')
