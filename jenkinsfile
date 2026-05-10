@@ -3,12 +3,7 @@ pipeline {
 
     environment {
         JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
-    }
-
-    tools {
-        maven 'Maven'
-        jdk 'JDK'
+        PATH = "/usr/lib/jvm/java-17-openjdk-amd64/bin:/opt/maven/bin:/usr/bin:${env.PATH}"
     }
 
     stages {
@@ -22,26 +17,11 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64'
                 sh 'java -version'
-                sh 'mvn -version'
-                sh 'mvn clean package'
+                sh '/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/Maven/bin/mvn -version'
+                sh '/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/Maven/bin/mvn clean package'
             }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build successful!'
-        }
-
-        failure {
-            echo 'Build failed!'
         }
     }
 }
